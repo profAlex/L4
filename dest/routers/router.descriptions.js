@@ -3,14 +3,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.createNewDriver = exports.getDriverById = exports.getDriversList = void 0;
 const http_statuses_1 = require("../core/http-statuses");
 // import {Driver, DriverStatus} from "../drivers/driver-types";
-const drivers_repository_mongodb_1 = require("../repositories/drivers.repository.mongodb");
+const service_drivers_1 = require("../service/service.drivers");
 const getDriversList = async (req, res) => {
-    const driversList = await drivers_repository_mongodb_1.driversRepository.findALl();
+    const driversList = await service_drivers_1.driversService.findALl();
     res.status(200).json(driversList);
 };
 exports.getDriversList = getDriversList;
 const getDriverById = async (req, res) => {
-    const driver = await drivers_repository_mongodb_1.driversRepository.findById(+req.params.id);
+    const driver = await service_drivers_1.driversService.findById(+req.params.id);
     if (!driver) {
         res.status(404).send({ message: "Driver not found" });
         return;
@@ -19,7 +19,7 @@ const getDriverById = async (req, res) => {
 };
 exports.getDriverById = getDriverById;
 const createNewDriver = async (req, res) => {
-    const newDriver = await drivers_repository_mongodb_1.driversRepository.createDriver(req.body);
+    const newDriver = await service_drivers_1.driversService.createDriver(req.body);
     res.status(201).send(newDriver);
 };
 exports.createNewDriver = createNewDriver;

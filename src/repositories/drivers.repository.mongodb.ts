@@ -16,7 +16,6 @@ export const driversRepository = {
 
     async createDriver(driver: any): Promise<Driver> {
         const docCount = await driverCollection.countDocuments();
-        let newID :number = 1;
 
         if(docCount > 0){
 
@@ -26,19 +25,12 @@ export const driversRepository = {
                 .limit(1)
                 .toArray();
 
-            newID = lastDoc[0].id + 1;
+            driver.id = lastDoc[0].id + 1;
         }
 
-        const newDriver: Driver = {
-            ...driver,
-            id: newID,
-            status: DriverStatus.Online,
-            createdAt: new Date(),
-        };
+        await driverCollection.insertOne(driver);
 
-        await driverCollection.insertOne(newDriver);
-
-        return newDriver;
+        return driver;
     },
 
     async deleteAllDrivers(): Promise<void> {
