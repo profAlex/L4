@@ -1,6 +1,6 @@
 import {FieldValidationError, ValidationError, validationResult} from "express-validator";
-import {ValidationErrorDto, ValidationErrorType} from "../core/validation-error";
-import {HttpStatus} from "../core/http-statuses";
+import {ValidationErrorDto, ValidationErrorType} from "../../core/validation-error";
+import {HttpStatus} from "../../core/http-statuses";
 import { NextFunction, Request, Response } from 'express';
 
 

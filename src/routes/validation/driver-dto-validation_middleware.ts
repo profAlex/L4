@@ -1,5 +1,5 @@
 import {param, body} from "express-validator";
-import {VehicleFeature} from "../drivers/driver-types";
+import {VehicleFeature} from "../../drivers/driver-types";
 
 const nameValidation = body("name")
     .exists().withMessage("Name must be specified")

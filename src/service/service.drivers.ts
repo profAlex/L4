@@ -6,7 +6,7 @@ export const driversService = {
         return driversRepository.findALl();
     },
 
-    async findById(id: number | null | undefined): Promise<Driver | null | undefined> {
+    async findById(id: string | null | undefined): Promise<Driver | null | undefined> {
         if (id) {
             return driversRepository.findById(id) ?? null;
         }
@@ -23,7 +23,7 @@ export const driversService = {
             createdAt: new Date(),
         };
 
-        return await driversRepository.createDriver(newDriver);
+        return driversRepository.createDriver(newDriver);
 
     },
 

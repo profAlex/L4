@@ -5,11 +5,11 @@ import {Router} from "express";
 // import {driverInputDtoValidation} from "../drivers/driver-body-validation";
 // import {ValidationError} from "../core/validation-error";
 // import {HttpStatus} from "../core/http-statuses";
-import {createNewDriver, getDriverById, getDriversList} from "./router.descriptions";
-import {inputIdValidation} from "../validation/input-id-validation_middleware";
-import {inputValidationResultMiddleware} from "../validation/error-management-validation_middleware";
-import {driverInputDtoValidation} from "../validation/driver-dto-validation_middleware";
-import {superAdminGuardMiddleware} from "../validation/base64-auth-guard_middleware";
+import {createNewDriver, getDriverById, getDriversList} from "./driver-handlers/router.descriptions";
+import {inputIdValidation} from "./validation/input-id-validation_middleware";
+import {inputValidationResultMiddleware} from "./validation/error-management-validation_middleware";
+import {driverInputDtoValidation} from "./validation/driver-dto-validation_middleware";
+import {superAdminGuardMiddleware} from "./validation/base64-auth-guard_middleware";
 
 export const driverRouter = Router();
 

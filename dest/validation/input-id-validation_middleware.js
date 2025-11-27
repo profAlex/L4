@@ -5,5 +5,5 @@ const express_validator_1 = require("express-validator");
 exports.inputIdValidation = (0, express_validator_1.param)('id')
     .exists().withMessage('ID must be specified')
     .trim()
-    .isNumeric().withMessage('ID must be a numeric number')
+    .isString().withMessage('ID must be of type string')
     .isLength({ min: 1 }).withMessage('ID must not be empty');

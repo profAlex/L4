@@ -20,7 +20,7 @@ exports.driversService = {
             status: driver_types_1.DriverStatus.Online,
             createdAt: new Date(),
         };
-        return await drivers_repository_mongodb_1.driversRepository.createDriver(newDriver);
+        return drivers_repository_mongodb_1.driversRepository.createDriver(newDriver);
     },
     async deleteAllDrivers() {
         drivers_repository_mongodb_1.driversRepository.deleteAllDrivers();

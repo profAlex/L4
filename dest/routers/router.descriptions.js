@@ -10,7 +10,7 @@ const getDriversList = async (req, res) => {
 };
 exports.getDriversList = getDriversList;
 const getDriverById = async (req, res) => {
-    const driver = await service_drivers_1.driversService.findById(+req.params.id);
+    const driver = await service_drivers_1.driversService.findById(req.params.id);
     if (!driver) {
         res.status(404).send({ message: "Driver not found" });
         return;
