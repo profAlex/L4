@@ -23,6 +23,14 @@ exports.driversRepository = {
     async findALl() {
         return mongo_db_1.driverCollection.find({}).toArray();
     },
+    // async findMany() Promise<Driver[]> {
+    //     const items = await driverCollection
+    //         .find(filter)
+    //         .sort({ [sortBy]: sortDirection })
+    //         .skip(skip)
+    //         .limit(pageSize)
+    //         .toArray();
+    // },
     async findById(id) {
         if (typeof (id) === "string" && mongodb_1.ObjectId.isValid(id)) {
             return mongo_db_1.driverCollection.findOne({ id: id }) ?? null;

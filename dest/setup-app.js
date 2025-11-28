@@ -27,8 +27,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.setupApp = void 0;
 const express_1 = __importDefault(require("express"));
 const router_pathes_1 = require("./core/router-pathes");
-const driver_routes_1 = require("./routers/driver.routes");
-const testing_routes_1 = require("./routers/testing.routes");
+const driver_routes_1 = require("./routes/driver.routes");
+const testing_routes_1 = require("./routes/testing.routes");
 const setupApp = (app) => {
     app.use(express_1.default.json());
     app.use(router_pathes_1.DRIVERS_PATH, driver_routes_1.driverRouter);

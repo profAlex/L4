@@ -2,7 +2,7 @@ import request = require('supertest');
 import express = require('express');
 import { setupApp } from "../src/setup-app";
 import { HttpStatus } from "../src/core/http-statuses";
-import { DriverInputDto } from "../src/drivers/driver.input-dto"
+import { DriverInputDto } from "../src/routes/driver-types-and-enums/driver-input-dto"
 import {runDB} from "../src/db/mongo.db";
 
 describe("Test input data validation", () => {

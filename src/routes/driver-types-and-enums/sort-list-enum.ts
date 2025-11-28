@@ -1,4 +1,4 @@
-export const enum sortListEnum {
+export enum SortListEnum {
     CreatedAt = 'createdAt',
     Name = 'name',
     Email = 'email',

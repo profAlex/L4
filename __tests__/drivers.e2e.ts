@@ -5,8 +5,8 @@ import express = require('express');
 import { setupApp } from "../src/setup-app";
 //import { app } from "../src"
 import { HttpStatus } from "../src/core/http-statuses";
-import { DriverInputDto } from "../src/drivers/driver.input-dto"
-import {DriverStatus} from "../src/drivers/driver-types";
+import { DriverInputDto } from "../src/routes/driver-types-and-enums/driver-input-dto"
+import {DriverStatus} from "../src/routes/driver-types-and-enums/driver-types";
 import {driversRepository} from "../src/repositories/drivers.repository.mongodb";
 import {appStart} from "../src";
 import {runDB} from "../src/db/mongo.db";
@@ -111,7 +111,46 @@ describe("Test API", () => {
 
         expect(getResponse.body).toEqual({
             ...createResponse.body,
-            id: expect.any(Number),
+            id: expect.any(String),
+            _id: expect.any(String),
+
+            status: DriverStatus.Online,
+            createdAt: expect.any(String),
+        });
+    });
+
+
+    it('GET /drivers/?pageNumber=0&pageSize=5000&sortDirection=descendng&searchDriverNameTerm=John - should return ...; ', async () => {
+        //await runDB();
+
+
+        // const createResponse = await request(app)
+        //     .post('/api/drivers')
+        //     .set('Authorization', 'Basic ' + 'YWRtaW46cXdlcnR5')
+        //     .send({ ...testDriverData, name: 'Another Driver' })
+        //     .expect(HttpStatus.Created);
+
+        const getResponse = await request(app)
+            // .get("/api/drivers/3")
+            .get(`/api/drivers/?
+            pageNumber=2&
+            pageSize=99&
+            sortBy=name&
+            sortDirection=descending&
+            searchDriverNameTerm=John&
+            searchDriverEmailTerm=test@example.com&
+            searchVehicleMakeTerm=BMW`)
+            .expect(HttpStatus.Ok);
+
+        // const getResponse = await request(app).get("/api/drivers/3");
+
+        expect(getResponse.body.name).toBe('Another Driver');
+
+        expect(getResponse.body).toEqual({
+            ...getResponse.body,
+            id: expect.any(String),
+            _id: expect.any(String),
+
             status: DriverStatus.Online,
             createdAt: expect.any(String),
         });

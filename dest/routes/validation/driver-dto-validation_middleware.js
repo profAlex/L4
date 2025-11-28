@@ -1,79 +1,70 @@
-import {param, body} from "express-validator";
-import {VehicleFeature} from "../driver-types-and-enums/driver-types";
-
-const nameValidation = body("name")
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.driverInputDtoValidation = void 0;
+const express_validator_1 = require("express-validator");
+const driver_types_1 = require("../driver-types-and-enums/driver-types");
+const nameValidation = (0, express_validator_1.body)("name")
     .exists().withMessage("Name must be specified")
     .isString().withMessage("Incorrect name type (must be string)")
     .trim()
-    .isLength({min: 2, max: 30}).withMessage("Name length must be between 2 and 30 symbols");
-
+    .isLength({ min: 2, max: 30 }).withMessage("Name length must be between 2 and 30 symbols");
 // неработающая версия с "param"
 // const nameValidationV2 = param("name")
 //     .exists().withMessage("Name must be specified")
 //     .isString().withMessage("Incorrect name type (must be string")
 //     .trim()
 //     .isLength({min: 2, max: 30}).withMessage("Name length must be between 2 and 30 symbols");
-
-const phoneNumberValidation = body("phoneNumber")
+const phoneNumberValidation = (0, express_validator_1.body)("phoneNumber")
     .exists().withMessage("Phone number must be specified")
     .isString().withMessage("Incorrect phone number type (must be string")
     .trim()
-    .isLength({min: 8, max: 15}).withMessage("Phone length must be between 8 and 15 symbols")
-
-const emailValidation = body("email")
+    .isLength({ min: 8, max: 15 }).withMessage("Phone length must be between 8 and 15 symbols");
+const emailValidation = (0, express_validator_1.body)("email")
     .exists().withMessage("Email must be specified")
     .isString().withMessage("Incorrect email type (must be string")
     .trim()
-    .isLength({min: 5, max: 100}).withMessage("Email length must be between 5 and 100 symbols")
-    .isEmail().withMessage("Email has incorrect format")
-
-const vehicleMakeValidation = body('vehicleMake')
+    .isLength({ min: 5, max: 100 }).withMessage("Email length must be between 5 and 100 symbols")
+    .isEmail().withMessage("Email has incorrect format");
+const vehicleMakeValidation = (0, express_validator_1.body)('vehicleMake')
     .exists().withMessage('vehicleMake must be specified')
     .isString().withMessage('vehicleMake should be string')
     .trim()
     .isLength({ min: 3, max: 100 }).withMessage('Length of vehicleMake is not correct');
-
-const vehicleModelValidation = body('vehicleModel')
+const vehicleModelValidation = (0, express_validator_1.body)('vehicleModel')
     .exists().withMessage('Vehicle Model must be specified')
     .isString().withMessage('vehicleModel should be string')
     .trim()
     .isLength({ min: 2, max: 100 }).withMessage('Length of vehicleModel is not correct');
-
 const currentYear = new Date().getFullYear();
-const vehicleYearValidation = body("vehicleYear")
+const vehicleYearValidation = (0, express_validator_1.body)("vehicleYear")
     .exists().withMessage('Vehicle year must be specified')
-    .isInt({min:1980, max:currentYear}).withMessage("Vehicle year should be between 1980 and current year");
-
-const vehicleLicensePlateValidation = body('vehicleLicensePlate')
+    .isInt({ min: 1980, max: currentYear }).withMessage("Vehicle year should be between 1980 and current year");
+const vehicleLicensePlateValidation = (0, express_validator_1.body)('vehicleLicensePlate')
     .exists().withMessage('Vehicle License Plate should be specified')
     .isString().withMessage('vehicleLicensePlate type should be string')
     .trim()
-    .isLength({min:6, max:10}).withMessage("Length of vehicleLicensePlate should be between 6 and 10 symbols")
-
-const vehicleDescriptionValidation = body('vehicleDescription')
-    .optional({nullable: true})
+    .isLength({ min: 6, max: 10 }).withMessage("Length of vehicleLicensePlate should be between 6 and 10 symbols");
+const vehicleDescriptionValidation = (0, express_validator_1.body)('vehicleDescription')
+    .optional({ nullable: true })
     .isString().withMessage("vehicleDescription type must be string")
     .trim()
     .isLength({ min: 10, max: 200 }).withMessage('Length of vehicleDescription should be between 10 and 200 symbols');
-
-const vehicleFeaturesValidation = body('vehicleFeatures')
+const vehicleFeaturesValidation = (0, express_validator_1.body)('vehicleFeatures')
     .isArray()
     .withMessage('vehicleFeatures should be array')
     .optional()
-    .custom((vehicleFeatures: Array<VehicleFeature>) => {
-        if (vehicleFeatures.length) {
-            const validFeatures = Object.values(VehicleFeature);
-
-            vehicleFeatures.forEach((feature) => {
-                if (!validFeatures.includes(feature)) {
-                    throw new Error('vehicleFeatures should contain values of VehicleFeature');
-                }
-            });
-        }
-        return true;
-    });
-
-export const driverInputDtoValidation = [
+    .custom((vehicleFeatures) => {
+    if (vehicleFeatures.length) {
+        const validFeatures = Object.values(driver_types_1.VehicleFeature);
+        vehicleFeatures.forEach((feature) => {
+            if (!validFeatures.includes(feature)) {
+                throw new Error('vehicleFeatures should contain values of VehicleFeature');
+            }
+        });
+    }
+    return true;
+});
+exports.driverInputDtoValidation = [
     nameValidation,
     phoneNumberValidation,
     emailValidation,
@@ -84,7 +75,6 @@ export const driverInputDtoValidation = [
     vehicleDescriptionValidation,
     vehicleFeaturesValidation,
 ];
-
 // import {DriverInputDto} from "./driver.input-dto";
 // import {ValidationError} from "../core/validation-error";
 //

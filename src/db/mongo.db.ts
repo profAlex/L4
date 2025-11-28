@@ -1,5 +1,5 @@
 import {Collection, Db, MongoClient} from "mongodb";
-import {Driver} from "../drivers/driver-types";
+import {Driver} from "../routes/driver-types-and-enums/driver-types";
 
 const DB_NAME = 'drivers_db';
 const DRIVER_COLLECTION_NAME = 'drivers_collection';

@@ -5,9 +5,28 @@ import {driverInputDtoValidation} from "../validation/driver-dto-validation_midd
 import {HttpStatus} from "../../core/http-statuses";
 // import {Driver, DriverStatus} from "../drivers/driver-types";
 import {driversService} from "../../service/service.drivers";
+import {InputDriverQuery} from "../driver-types-and-enums/input-query/input-driver-query";
+import {matchedData} from "express-validator";
 
 
-export const getDriversList = async (req: Request, res: Response) => {
+export const getDriversList = async (req: Request<{}, {}, {}, InputDriverQuery>, res: Response) => {
+
+    // console.log("HERE");
+    const sanitizedQuery = matchedData<InputDriverQuery>(req, {
+        locations: ['query'],
+        includeOptionals: true,
+    }); //утилита для извечения трансформированных значений после валидатара
+    //в req.query остаются сырые квери параметры (строки)
+
+    // console.log(sanitizedQuery.pageNumber);
+    // console.log(sanitizedQuery.pageSize);
+    //
+    // console.log(sanitizedQuery.sortDirection);
+    // console.log(sanitizedQuery.searchDriverEmailTerm);
+
+    console.log(req.query);
+    console.log(sanitizedQuery);
+
     const driversList = await driversService.findALl()
     res.status(200).json(driversList);
 };

@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.driversService = void 0;
-const driver_types_1 = require("../drivers/driver-types");
+const driver_types_1 = require("../routes/driver-types-and-enums/driver-types");
 const drivers_repository_mongodb_1 = require("../repositories/drivers.repository.mongodb");
 exports.driversService = {
     async findALl() {

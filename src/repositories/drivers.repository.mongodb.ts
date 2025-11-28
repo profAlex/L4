@@ -1,4 +1,4 @@
-import {Driver, DriverStatus, VehicleFeature} from "../drivers/driver-types";
+import {Driver, DriverStatus, VehicleFeature} from "../routes/driver-types-and-enums/driver-types";
 import {driverCollection} from "../db/mongo.db";
 import {ObjectId} from "mongodb";
 
@@ -42,14 +42,14 @@ export const driversRepository = {
         return driverCollection.find({}).toArray();
     },
 
-    async findMany() Promise<Driver[]> {
-        const items = await driverCollection
-            .find(filter)
-            .sort({ [sortBy]: sortDirection })
-            .skip(skip)
-            .limit(pageSize)
-            .toArray();
-    },
+    // async findMany() Promise<Driver[]> {
+    //     const items = await driverCollection
+    //         .find(filter)
+    //         .sort({ [sortBy]: sortDirection })
+    //         .skip(skip)
+    //         .limit(pageSize)
+    //         .toArray();
+    // },
 
     async findById(id: string | null | undefined): Promise<Driver | null | undefined> {
         if (typeof(id)=== "string" && ObjectId.isValid(id)) {

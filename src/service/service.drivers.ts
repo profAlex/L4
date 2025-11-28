@@ -1,4 +1,4 @@
-import {Driver, DriverStatus, VehicleFeature} from "../drivers/driver-types";
+import {Driver, DriverStatus, VehicleFeature} from "../routes/driver-types-and-enums/driver-types";
 import {driversRepository} from "../repositories/drivers.repository.mongodb";
 
 export const driversService = {
