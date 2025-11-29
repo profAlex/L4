@@ -4,8 +4,8 @@ exports.driversService = void 0;
 const driver_types_1 = require("../routes/driver-types-and-enums/driver-types");
 const drivers_repository_mongodb_1 = require("../repositories/drivers.repository.mongodb");
 exports.driversService = {
-    async findALl() {
-        return drivers_repository_mongodb_1.driversRepository.findALl();
+    async findALl(inputQueryDto) {
+        return drivers_repository_mongodb_1.driversRepository.findALl(inputQueryDto);
     },
     async findById(id) {
         if (id) {

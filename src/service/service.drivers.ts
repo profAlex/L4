@@ -1,9 +1,11 @@
 import {Driver, DriverStatus, VehicleFeature} from "../routes/driver-types-and-enums/driver-types";
 import {driversRepository} from "../repositories/drivers.repository.mongodb";
+import {InputDriverQuery} from "../routes/driver-types-and-enums/input-query/input-driver-query";
+import {WithId} from "mongodb";
 
 export const driversService = {
-    async findALl(): Promise<Driver[]> {
-        return driversRepository.findALl();
+    async findALl(inputQueryDto: InputDriverQuery): Promise<{items: WithId<Driver>[]; totalCount: number}> {
+        return driversRepository.findALl(inputQueryDto);
     },
 
     async findById(id: string | null | undefined): Promise<Driver | null | undefined> {

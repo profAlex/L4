@@ -19,7 +19,7 @@ const getDriversList = async (req, res) => {
     // console.log(sanitizedQuery.searchDriverEmailTerm);
     console.log(req.query);
     console.log(sanitizedQuery);
-    const driversList = await service_drivers_1.driversService.findALl();
+    const driversList = await service_drivers_1.driversService.findALl(sanitizedQuery);
     res.status(200).json(driversList);
 };
 exports.getDriversList = getDriversList;

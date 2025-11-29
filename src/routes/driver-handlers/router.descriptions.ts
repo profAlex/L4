@@ -27,7 +27,7 @@ export const getDriversList = async (req: Request<{}, {}, {}, InputDriverQuery>,
     console.log(req.query);
     console.log(sanitizedQuery);
 
-    const driversList = await driversService.findALl()
+    const driversList = await driversService.findALl(sanitizedQuery);
     res.status(200).json(driversList);
 };
 
