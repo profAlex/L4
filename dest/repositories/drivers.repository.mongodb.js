@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.driversRepository = void 0;
 const mongo_db_1 = require("../db/mongo.db");
 const mongodb_1 = require("mongodb");
+const sorting_direction_mongo_1 = require("../routes/driver-types-and-enums/sorting-direction-mongo");
 const transformSingleDriverInCollectionToViewModel = (driverInStorage) => {
     return {
         id: driverInStorage.id,
@@ -19,6 +20,10 @@ const transformSingleDriverInCollectionToViewModel = (driverInStorage) => {
         createdAt: driverInStorage.createdAt,
     };
 };
+const DEFAULT_PAGE_NUMBER = 1;
+const DEFAULT_PAGE_SIZE = 10;
+const DEFAULT_SORT_BY = 'createdAt';
+const DEFAULT_SORT_DIRECTION = sorting_direction_mongo_1.CustomSortDirection.Ascending;
 exports.driversRepository = {
     async findALl(inputQueryDto) {
         const { pageNumber, pageSize, sortBy, sortDirection, searchDriverNameTerm, searchDriverEmailTerm, searchVehicleMakeTerm, } = inputQueryDto;

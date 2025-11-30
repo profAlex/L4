@@ -2,6 +2,7 @@ import {Driver, DriverStatus, VehicleFeature} from "../routes/driver-types-and-e
 import {driverCollection} from "../db/mongo.db";
 import {ObjectId, WithId} from "mongodb";
 import {InputDriverQuery} from "../routes/driver-types-and-enums/input-query/input-driver-query";
+import {CustomSortDirection} from "../routes/driver-types-and-enums/sorting-direction-mongo";
 
 
 type driverCollectionStorageModel = {
@@ -67,6 +68,24 @@ export const driversRepository = {
         if (searchVehicleMakeTerm) {
             filter['vehicle.make'] = { $regex: searchVehicleMakeTerm, $options: 'i' };
         }
+
+        // const searchTerm = "ваш_поисковый_запрос";
+        // const filter = {
+        //     $expr: {
+        //         $anyElementTrue: {
+        //             $map: {
+        //                 input: { $objectToArray: "$$ROOT" },
+        //                 as: "field",
+        //                 in: {
+        //                     $and: [
+        //                         { $eq: [{ $type: "$$field.v" }, "string"] },
+        //                         { $regexMatch: { input: "$$field.v", regex: searchTerm, options: "i" } }
+        //                     ]
+        //                 }
+        //             }
+        //         }
+        //     }
+        // };
 
         if(!sortBy) {
             throw new Error();

@@ -7,6 +7,13 @@ import {HttpStatus} from "../../core/http-statuses";
 import {driversService} from "../../service/service.drivers";
 import {InputDriverQuery} from "../driver-types-and-enums/input-query/input-driver-query";
 import {matchedData} from "express-validator";
+import {WithId} from "mongodb";
+import {Driver, VehicleFeature} from "../driver-types-and-enums/driver-types";
+import {DriverDataOutput, DriverListPaginatedOutput} from "../driver-types-and-enums/paginated-outputs";
+import {mapToDriverListPaginatedOutput} from "../mappers/paginated-output-mapper";
+
+
+
 
 
 export const getDriversList = async (req: Request<{}, {}, {}, InputDriverQuery>, res: Response) => {
@@ -27,8 +34,16 @@ export const getDriversList = async (req: Request<{}, {}, {}, InputDriverQuery>,
     console.log(req.query);
     console.log(sanitizedQuery);
 
-    const driversList = await driversService.findALl(sanitizedQuery);
-    res.status(200).json(driversList);
+    const {items, totalCount} = await driversService.findALl(sanitizedQuery);
+
+
+    const driversListOutput = mapToDriverListPaginatedOutput(items, {
+        pageNumber: sanitizedQuery.pageNumber,
+        pageSize: sanitizedQuery.pageSize,
+        totalCount,
+    });
+
+    res.status(HttpStatus.Ok).send(driversListOutput);
 };
 
 export const getDriverById = async (req: Request, res: Response) => {
