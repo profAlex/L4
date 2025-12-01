@@ -2,9 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createNewDriver = exports.getDriverById = exports.getDriversList = void 0;
 const http_statuses_1 = require("../../core/http-statuses");
-// import {Driver, DriverStatus} from "../drivers/driver-types";
 const service_drivers_1 = require("../../service/service.drivers");
 const express_validator_1 = require("express-validator");
+const paginated_output_mapper_1 = require("../mappers/paginated-output-mapper");
 const getDriversList = async (req, res) => {
     // console.log("HERE");
     const sanitizedQuery = (0, express_validator_1.matchedData)(req, {
@@ -19,8 +19,13 @@ const getDriversList = async (req, res) => {
     // console.log(sanitizedQuery.searchDriverEmailTerm);
     console.log(req.query);
     console.log(sanitizedQuery);
-    const driversList = await service_drivers_1.driversService.findALl(sanitizedQuery);
-    res.status(200).json(driversList);
+    const { items, totalCount } = await service_drivers_1.driversService.findALl(sanitizedQuery);
+    const driversListOutput = (0, paginated_output_mapper_1.mapToDriverListPaginatedOutput)(items, {
+        pageNumber: sanitizedQuery.pageNumber,
+        pageSize: sanitizedQuery.pageSize,
+        totalCount,
+    });
+    res.status(http_statuses_1.HttpStatus.Ok).send(driversListOutput);
 };
 exports.getDriversList = getDriversList;
 const getDriverById = async (req, res) => {

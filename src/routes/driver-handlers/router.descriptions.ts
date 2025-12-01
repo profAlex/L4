@@ -1,19 +1,9 @@
 import {Request, Response} from "express";
-// import {driversDb} from "../db/mock-data";
-import {ValidationErrorType} from "../../core/validation-error";
-import {driverInputDtoValidation} from "../validation/driver-dto-validation_middleware";
 import {HttpStatus} from "../../core/http-statuses";
-// import {Driver, DriverStatus} from "../drivers/driver-types";
 import {driversService} from "../../service/service.drivers";
 import {InputDriverQuery} from "../driver-types-and-enums/input-query/input-driver-query";
 import {matchedData} from "express-validator";
-import {WithId} from "mongodb";
-import {Driver, VehicleFeature} from "../driver-types-and-enums/driver-types";
-import {DriverDataOutput, DriverListPaginatedOutput} from "../driver-types-and-enums/paginated-outputs";
 import {mapToDriverListPaginatedOutput} from "../mappers/paginated-output-mapper";
-
-
-
 
 
 export const getDriversList = async (req: Request<{}, {}, {}, InputDriverQuery>, res: Response) => {
